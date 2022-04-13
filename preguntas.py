@@ -23,7 +23,7 @@ def pregunta_01():
 
     """
     
-    x= tbl0.shape[0]
+    x= tbl0.shape[0] #shape regresa la cantidad de filas y columnas del dataframe, respectivamente, como solo necesito las filas selecciono la columna respectiva con []
     return x
    
 
@@ -36,7 +36,10 @@ def pregunta_02():
     4
 
     """
-    return
+    
+     y = tbl0.shape[1] #shape regresa la cantidad de filas y columnas del dataframe, respectivamente, como solo necesito las filas selecciono la columna respectiva con []
+    return y
+    
 
 
 def pregunta_03():
