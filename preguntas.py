@@ -128,7 +128,10 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    suma = df.groupby(by=['_c1']).sum().pop('_c2')
+    return suma
+    
 
 
 def pregunta_08():
