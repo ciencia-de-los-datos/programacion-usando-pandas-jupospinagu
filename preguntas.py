@@ -72,7 +72,10 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    promedio = df.groupby(by=['_c1']).mean().pop('_c0')
+    return promedio
+    
 
 
 def pregunta_05():
@@ -90,8 +93,9 @@ def pregunta_05():
     Name: _c2, dtype: int64
     """
     df = pd.DataFrame(tbl0) 
-    promedio = df.groupby(by=['_c1']).mean().pop('_c0')
-    return promedio
+    maximos = df.groupby(by=['_c1']).max().pop('_c2')
+    return maximos
+   
     
 
 
