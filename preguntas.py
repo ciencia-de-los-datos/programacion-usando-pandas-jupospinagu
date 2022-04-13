@@ -55,7 +55,9 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    df = pd.DataFrame(tbl0)   
+    conteo = df['_c1'].value_counts().sort_index() 
+    return conteo
 
 
 def pregunta_04():
