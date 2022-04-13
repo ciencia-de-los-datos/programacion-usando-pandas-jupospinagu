@@ -73,7 +73,7 @@ def pregunta_04():
     Name: _c2, dtype: float64
     """
     df = pd.DataFrame(tbl0) 
-    promedio = df.groupby(by=['_c1']).mean().pop('_c0')
+    promedio = df.groupby(by=['_c1']).mean().pop('_c2')
     return promedio
     
 
