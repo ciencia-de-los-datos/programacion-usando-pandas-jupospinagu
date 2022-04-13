@@ -89,7 +89,10 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    promedio = df.groupby(by=['_c1']).mean().pop('_c0')
+    return promedio
+    
 
 
 def pregunta_06():
