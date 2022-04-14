@@ -149,7 +149,10 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    suma = pd.DataFrame(df['_c0'] + df['_c2'], columns=['suma'])
+    df = df.join(suma)
+    return df
 
 
 def pregunta_09():
