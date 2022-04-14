@@ -170,7 +170,12 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    year = pd.DataFrame(df['_c3'].str.split('-', expand=True)[0])
+    year.columns = ['year']
+    df = df.join(year)
+    return df
+    
 
 
 def pregunta_10():
