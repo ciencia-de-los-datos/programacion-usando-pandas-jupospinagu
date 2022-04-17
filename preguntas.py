@@ -203,6 +203,7 @@ def pregunta_10():
     for i in range(len(df['_c2'])):
         df['_c2'][i] = ':'.join(df['_c2'][i])
     
+    df = df.drop(['_c1'], axis=1)
     return df
 
 
