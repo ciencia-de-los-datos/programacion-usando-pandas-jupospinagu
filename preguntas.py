@@ -196,16 +196,14 @@ def pregunta_10():
     df['_c2'] = df['_c2'].apply(lambda x: str(x))
 
 
-    df = pd.DataFrame(df.groupby(['_c1'])['_c2'], columns= ['_c1', '_c2'], index=pd.Series(["A", "B", "C", "D", "E"]))
+    df = pd.DataFrame(df.groupby(['_c1'])['_c2'], columns= ['_c1', '_c2'], index=pd.Series(["A", "B", "C", "D", "E"], name="_c1"))
     df['_c2'] = df['_c2'].apply(lambda x: (sorted(x)))
 
 
     for i in range(len(df['_c2'])):
         df['_c2'][i] = ':'.join(df['_c2'][i])
     
-   
     return df
-    
 
 
 def pregunta_11():
