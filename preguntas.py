@@ -192,7 +192,20 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    df['_c2'] = df['_c2'].apply(lambda x: str(x))
+
+
+    df = pd.DataFrame(df.groupby(['_c1'])['_c2'], columns= ['_c1', '_c2'])
+    df['_c2'] = df['_c2'].apply(lambda x: (sorted(x)))
+
+
+    for i in range(len(df['_c2'])):
+        df['_c2'][i] = ':'.join(df['_c2'][i])
+    
+    df.columns = ['_c0', '_c1']
+    return df
+    
 
 
 def pregunta_11():
