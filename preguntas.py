@@ -203,7 +203,7 @@ def pregunta_10():
     for i in range(len(df['_c2'])):
         df['_c2'][i] = ':'.join(df['_c2'][i])
     
-    df.columns = ['_c0', '_c1']
+    
     return df
     
 
