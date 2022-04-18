@@ -226,6 +226,8 @@ def pregunta_11():
     df = pd.DataFrame(tbl1) 
     df = pd.DataFrame(df.groupby(['_c0'])['_c4'], columns= ['_c0', '_c4'])
     df['_c4'] = df['_c4'].apply(lambda x: (sorted(x)))
+    for i in range(len(df['_c4'])):
+        df['_c4'][i] = ','.join(df['_c4'][i])
     
     return df
 
