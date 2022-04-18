@@ -223,7 +223,11 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    df = pd.DataFrame(tbl1) 
+    df = pd.DataFrame(df.groupby(['_c0'])['_c4'], columns= ['_c0', '_c4'])
+    df['_c4'] = df['_c4'].apply(lambda x: (sorted(x)))
+    
+    return df
 
 
 def pregunta_12():
