@@ -247,7 +247,17 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    df = pd.DataFrame(tbl2) 
+    df['_c5b'] = df['_c5b'].astype('str')                    
+    df['_c5'] = df['_c5a'].str.cat(df['_c5b'], sep = ':')   
+    df = df.drop(['_c5a', '_c5b'], axis=1)                   
+    df = df.groupby(['_c0']).agg({'_c5': ','.join})           
+    df['_c5'] = df['_c5'].str.split(',')
+    for i in range(len(df['_c5'])):
+     df['_c5'][i] = sorted(df['_c5'][i])
+     df['_c5'][i] = ','.join(df['_c5'][i])
+        
+    return df
 
 
 def pregunta_13():
