@@ -257,7 +257,8 @@ def pregunta_12():
      df['_c5'][i] = sorted(df['_c5'][i])
      df['_c5'][i] = ','.join(df['_c5'][i])
         
-    return df
+    df_final = pd.DataFrame(df,columns= ['_c0', '_c5'])    
+    return df_final
 
 
 def pregunta_13():
