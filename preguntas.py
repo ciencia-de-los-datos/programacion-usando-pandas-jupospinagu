@@ -283,5 +283,5 @@ def pregunta_13():
     df_valores = df_valores.groupby(['_c0']).agg({'_c5b': sum})
     df_final = pd.concat([df_letras, df_valores], axis=1)
     df_final = df_final.groupby(['_c1']).agg({'_c5b': sum})
-    df_final.squeeze()
+    df_final = df_final.squeeze()
     return df_final
