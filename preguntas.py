@@ -22,7 +22,10 @@ def pregunta_01():
     40
 
     """
-    return
+    
+    x= tbl0.shape[0] 
+    return x
+   
 
 
 def pregunta_02():
@@ -33,7 +36,9 @@ def pregunta_02():
     4
 
     """
-    return
+    
+    y = tbl0.shape[1] 
+    return y
 
 
 def pregunta_03():
@@ -50,7 +55,9 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    df = pd.DataFrame(tbl0)   
+    conteo = df['_c1'].value_counts().sort_index() 
+    return conteo
 
 
 def pregunta_04():
@@ -65,7 +72,10 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    promedio = df.groupby(by=['_c1']).mean().pop('_c2')
+    return promedio
+    
 
 
 def pregunta_05():
@@ -82,7 +92,11 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    maximos = df.groupby(by=['_c1']).max().pop('_c2')
+    return maximos
+   
+    
 
 
 def pregunta_06():
@@ -94,7 +108,11 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    df = pd.DataFrame(tbl1) 
+    x = df['_c4'].unique()
+    x= sorted([element.upper() for element in x])
+    return x
+    
 
 
 def pregunta_07():
@@ -110,7 +128,10 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    suma = df.groupby(by=['_c1']).sum().pop('_c2')
+    return suma
+    
 
 
 def pregunta_08():
@@ -128,7 +149,10 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    suma = pd.DataFrame(df['_c0'] + df['_c2'], columns=['suma'])
+    df = df.join(suma)
+    return df
 
 
 def pregunta_09():
@@ -146,7 +170,12 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    year = pd.DataFrame(df['_c3'].str.split('-', expand=True)[0])
+    year.columns = ['year']
+    df = df.join(year)
+    return df
+    
 
 
 def pregunta_10():
@@ -163,7 +192,19 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    df = pd.DataFrame(tbl0) 
+    df['_c2'] = df['_c2'].apply(lambda x: str(x))
+
+
+    df = pd.DataFrame(df.groupby(['_c1'])['_c2'], columns= ['_c1', '_c2'], index=pd.Series(["A", "B", "C", "D", "E"], name="_c1"))
+    df['_c2'] = df['_c2'].apply(lambda x: (sorted(x)))
+
+
+    for i in range(len(df['_c2'])):
+        df['_c2'][i] = ':'.join(df['_c2'][i])
+    
+    df = df.drop(['_c1'], axis=1)
+    return df
 
 
 def pregunta_11():
@@ -182,7 +223,13 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    df = pd.DataFrame(tbl1) 
+    df = pd.DataFrame(df.groupby(['_c0'])['_c4'], columns= ['_c0', '_c4'])
+    df['_c4'] = df['_c4'].apply(lambda x: (sorted(x)))
+    for i in range(len(df['_c4'])):
+        df['_c4'][i] = ','.join(df['_c4'][i])
+    
+    return df
 
 
 def pregunta_12():
@@ -200,7 +247,18 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    df = pd.DataFrame(tbl2) 
+    df['_c5b'] = df['_c5b'].astype('str')                    
+    df['_c5'] = df['_c5a'].str.cat(df['_c5b'], sep = ':')   
+    df = df.drop(['_c5a', '_c5b'], axis=1)                   
+    df = df.groupby(['_c0']).agg({'_c5': ','.join})           
+    df['_c5'] = df['_c5'].str.split(',')
+    for i in range(len(df['_c5'])):
+     df['_c5'][i] = sorted(df['_c5'][i])
+     df['_c5'][i] = ','.join(df['_c5'][i])
+        
+    df_final = pd.DataFrame(df,columns= ['_c0', '_c5'])    
+    return df_final
 
 
 def pregunta_13():
@@ -217,4 +275,13 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    df_letras = pd.DataFrame(tbl0)
+    df_valores = pd.DataFrame(tbl2)
+    df_letras = df_letras.drop(['_c2', '_c3'], axis = 1)
+    df_valores = df_valores.drop(['_c5a'], axis = 1)
+    df_valores['_c5b'] = df_valores['_c5b'].astype('int64')
+    df_valores = df_valores.groupby(['_c0']).agg({'_c5b': sum})
+    df_final = pd.concat([df_letras, df_valores], axis=1)
+    df_final = df_final.groupby(['_c1']).agg({'_c5b': sum})
+    df_final = df_final.squeeze()
+    return df_final
