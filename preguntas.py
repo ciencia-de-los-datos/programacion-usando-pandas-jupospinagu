@@ -275,4 +275,13 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    df_letras = pd.DataFrame(tbl0)
+    df_valores = pd.DataFrame(tbl2)
+    df_letras = df_letras.drop(['_c2', '_c3'], axis = 1)
+    df_valores = df_valores.drop(['_c5a'], axis = 1)
+    df_valores['_c5b'] = df_valores['_c5b'].astype('int64')
+    df_valores = df_valores.groupby(['_c0']).agg({'_c5b': sum})
+    df_final = pd.concat([df_letras, df_valores], axis=1)
+    df_final = df_final.groupby(['_c1']).agg({'_c5b': sum})
+    df_final.squeeze()
+    return df_final
